@@ -2,7 +2,7 @@ package sokoban;
 
 /**
  *
- * @author clbonnot
+ * @author Clément BONNOT  
  */
 public class Board {
 
