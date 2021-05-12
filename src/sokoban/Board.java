@@ -1,8 +1,12 @@
 package sokoban;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  *
- * @author Clément BONNOT  
+ * @author Clément BONNOT
  */
 public class Board {
 
@@ -26,19 +30,26 @@ public class Board {
 
     /**
      * Fonction d'initialisation du plateau de jeu
-     *
-     * @param WIDTH taille X du plateau
-     * @param HEIGHT taille Y du plateau
      * @return le plateau de jeu
      */
-    public static Case[][] initBoard(int WIDTH, int HEIGHT) {
-        xSize = WIDTH;
-        ySize = HEIGHT;
+    public static Case[][] initBoard() throws IOException {
+        {
+            BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\clemc\\OneDrive\\Documents\\NetBeansProjects\\sokoban\\plateau.txt"));
+            String line;
+            int nbLine = 0;
+            int nbColumn = 0;
+            while ((line = in.readLine()) != null) {
+                nbLine++;
+                nbColumn = line.length();
+            }
+            xSize = nbColumn;
+            ySize = nbLine;
+            in.close();
+        }
         board = new Case[xSize][ySize];
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
                 board[x][y] = new Case(x, y);
-                board[x][y].setNature(Nature.VOID);
             }
         }
         return board;
@@ -71,6 +82,7 @@ public class Board {
      * @return le plateau de jeu
      */
     public static Case[][] addHorizontalWall(int line, int c1, int c2) {
+
         for (int y = c1; y < c2; y++) {
             board[y][line].setNature(Nature.WALL);
         }
