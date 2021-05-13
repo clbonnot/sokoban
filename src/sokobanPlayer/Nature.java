@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sokoban;
+package sokobanPlayer;
 
 /**
  *
@@ -17,23 +17,23 @@ enum Nature {
     PERSON(4, "Joueur", "P"),
     TARGET(5,"Cible","X");
     
-    private int id;
-    private String object;
-    private String symbol;
+    final private int ID;
+    final private String OBJECT;
+    final private String SYMBOL;
 
     Nature(int id, String objet, String symbol) {
-        this.id = id;
-        this.object = objet;
-        this.symbol = symbol;
+        this.ID = id;
+        this.OBJECT = objet;
+        this.SYMBOL = symbol;
     }
 
     public int getId() {
-        return id;
+        return ID;
     }
     public String getObjet() {
-        return object;
+        return OBJECT;
     }
     public String getSymbol() {
-        return symbol; 
+        return SYMBOL; 
     }
 }

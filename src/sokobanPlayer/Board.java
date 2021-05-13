@@ -1,4 +1,4 @@
-package sokoban;
+package sokobanPlayer;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -30,9 +30,10 @@ public class Board {
 
     /**
      * Fonction d'initialisation du plateau de jeu
+     *
      * @return le plateau de jeu
      */
-    public static Case[][] initBoard() throws IOException {
+    static Case[][] initBoard() throws IOException {
         {
             BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\clemc\\OneDrive\\Documents\\NetBeansProjects\\sokoban\\plateau.txt"));
             String line;
@@ -74,79 +75,12 @@ public class Board {
     }
 
     /**
-     * Fonction qui rajoute un mur horizontal
-     *
-     * @param line la ligne concernée
-     * @param c1 première coordonnée Y
-     * @param c2 deuxième coordonnée Y
-     * @return le plateau de jeu
-     */
-    public static Case[][] addHorizontalWall(int line, int c1, int c2) {
-
-        for (int y = c1; y < c2; y++) {
-            board[y][line].setNature(Nature.WALL);
-        }
-        return board;
-    }
-
-    /**
-     * Fonction qui rajoute un mur vertical
-     *
-     * @param column la colonne concernée
-     * @param l1 la première coordonnée X
-     * @param l2 la deuxième coordonnée X
-     * @return le plateau de jeu
-     */
-    public static Case[][] addVerticalWall(int column, int l1, int l2) {
-        for (int y = l1; y < l2; y++) {
-            board[column][y].setNature(Nature.WALL);
-        }
-        return board;
-    }
-
-    /**
-     * Fonction qui ajoute une caisse sur le plateau de jeu
-     *
-     * @param line la ligne concernée
-     * @param column la colonne concernée
-     * @return le plateau de jeu
-     */
-    public static Case[][] addBox(int line, int column) {
-        board[line][column].setNature(Nature.BOX);
-        return board;
-    }
-
-    /**
-     * Fonction qui rajoute une cible sur le plateau de jeu
-     *
-     * @param line la ligne concernée
-     * @param column la colonne concernée
-     * @return le plateau de jeu
-     */
-    public static Case[][] addTarget(int line, int column) {
-        board[line][column].setNature(Nature.TARGET);
-        return board;
-    }
-
-    /**
-     * Fonction qui met une position de départ pour le joueur
-     *
-     * @param line la ligne concernée
-     * @param column la colonne concernée
-     * @return la plateau de jeu
-     */
-    public static Case[][] setPosition(int line, int column) {
-        board[line][column].setNature(Nature.PERSON);
-        return board;
-    }
-
-    /**
-     * Fonction qui met à jour la position du personnage sur le plateau
+     * Fonction qui met à jour la position du personnage sur le plateau lorsque cela est possible
      *
      * @param direction la direction
      * @return le plateau de jeu
      */
-    public static Case[][] movePosition(String direction) {
+    static Case[][] movePosition(String direction) {
         Case currentCase = takeJoueur();
         int targetX = currentCase.getCaseX();
         int targetY = currentCase.getCaseY();
@@ -214,7 +148,7 @@ public class Board {
      *
      * @return la case sur laquelle est le joueur
      */
-    public static Case takeJoueur() {
+    static Case takeJoueur() {
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
                 if (board[x][y].getNature() == Nature.PERSON) {
@@ -235,5 +169,78 @@ public class Board {
      */
     public static boolean outOfBoard(int xTarget, int yTarget) {
         return xTarget < 0 || xTarget > xSize - 1 || yTarget < 0 || yTarget > ySize - 1;
+    }
+    
+    
+    
+    
+    
+    // FONCTIONS INUTILES DE LA PARTIE 1 : 
+    
+    /**
+     * Fonction qui rajoute un mur horizontal
+     *
+     * @param line la ligne concernée
+     * @param c1 première coordonnée Y
+     * @param c2 deuxième coordonnée Y
+     * @return le plateau de jeu
+     */
+    private static Case[][] addHorizontalWall(int line, int c1, int c2) {
+
+        for (int y = c1; y < c2; y++) {
+            board[y][line].setNature(Nature.WALL);
+        }
+        return board;
+    }
+
+    /**
+     * Fonction qui rajoute un mur vertical
+     *
+     * @param column la colonne concernée
+     * @param l1 la première coordonnée X
+     * @param l2 la deuxième coordonnée X
+     * @return le plateau de jeu
+     */
+    private static Case[][] addVerticalWall(int column, int l1, int l2) {
+        for (int y = l1; y < l2; y++) {
+            board[column][y].setNature(Nature.WALL);
+        }
+        return board;
+    }
+
+    /**
+     * Fonction qui ajoute une caisse sur le plateau de jeu
+     *
+     * @param line la ligne concernée
+     * @param column la colonne concernée
+     * @return le plateau de jeu
+     */
+    private static Case[][] addBox(int line, int column) {
+        board[line][column].setNature(Nature.BOX);
+        return board;
+    }
+
+    /**
+     * Fonction qui rajoute une cible sur le plateau de jeu
+     *
+     * @param line la ligne concernée
+     * @param column la colonne concernée
+     * @return le plateau de jeu
+     */
+    private static Case[][] addTarget(int line, int column) {
+        board[line][column].setNature(Nature.TARGET);
+        return board;
+    }
+
+    /**
+     * Fonction qui met une position de départ pour le joueur
+     *
+     * @param line la ligne concernée
+     * @param column la colonne concernée
+     * @return la plateau de jeu
+     */
+    private static Case[][] setPosition(int line, int column) {
+        board[line][column].setNature(Nature.PERSON);
+        return board;
     }
 }

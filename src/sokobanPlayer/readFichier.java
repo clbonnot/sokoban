@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sokoban;
+package sokobanPlayer;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import static sokoban.Board.board;
+import static sokobanPlayer.Board.board;
 
 /**
  *
@@ -21,7 +21,6 @@ public class readFichier {
 
     /**
      * Méthode qui crée le plateau de jeu depuis un fichier.txt
-     *
      * @throws IOException
      */
     public static void saveBoard() throws IOException {
