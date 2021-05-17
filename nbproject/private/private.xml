@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/clemc/OneDrive/Documents/NetBeansProjects/sokoban/src/sokoban/Board.java</file>
-            <file>file:/C:/Users/clemc/OneDrive/Documents/NetBeansProjects/sokoban/src/sokoban/Player.java</file>
-            <file>file:/C:/Users/clemc/OneDrive/Documents/NetBeansProjects/sokoban/src/sokoban/Case.java</file>
-            <file>file:/C:/Users/clemc/OneDrive/Documents/NetBeansProjects/sokoban/src/sokoban/readFichier.java</file>
-            <file>file:/C:/Users/clemc/OneDrive/Documents/NetBeansProjects/sokoban/src/sokoban/Nature.java</file>
+            <file>file:/C:/Users/clemc/OneDrive/Documents/NetBeansProjects/sokoban/src/sokobanPlayer/Nature.java</file>
+            <file>file:/C:/Users/clemc/OneDrive/Documents/NetBeansProjects/sokoban/src/sokobanPlayer/Case.java</file>
+            <file>file:/C:/Users/clemc/OneDrive/Documents/NetBeansProjects/sokoban/src/sokobanPlayer/readFichier.java</file>
+            <file>file:/C:/Users/clemc/OneDrive/Documents/NetBeansProjects/sokoban/src/sokobanPlayer/gameMain.java</file>
+            <file>file:/C:/Users/clemc/OneDrive/Documents/NetBeansProjects/sokoban/src/sokobanAdmin/Administrator.java</file>
+            <file>file:/C:/Users/clemc/OneDrive/Documents/NetBeansProjects/sokoban/src/sokobanPlayer/Board.java</file>
+            <file>file:/C:/Users/clemc/OneDrive/Documents/NetBeansProjects/sokoban/src/sokobanPlayer/Player.java</file>
+            <file>file:/C:/Users/clemc/OneDrive/Documents/NetBeansProjects/sokoban/src/sokobanAdmin/gestionBD.java</file>
         </group>
     </open-files>
 </project-private>

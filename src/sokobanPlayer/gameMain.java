@@ -17,11 +17,7 @@ public class gameMain {
     /**
      * Méthode d'affichage du menu principal
      */
-    static void showMainMenu() {
-        System.out.println("1) Play");
-        System.out.println("2) Edit");
-        System.out.println("3) Exit");
-    }
+
     /**
      * Méthode gérant le lancement et la partie
      *

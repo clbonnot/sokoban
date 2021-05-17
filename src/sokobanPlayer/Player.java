@@ -1,6 +1,8 @@
 package sokobanPlayer;
+
 import java.util.Scanner;
-import static sokobanAdmin.Administrator.menuChoice;
+import sokobanAdmin.Administrator;
+
 
 /**
  *
@@ -12,7 +14,11 @@ public class Player {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        gameMain.showMainMenu();
+
+        System.out.println("1) Play");
+        System.out.println("2) Edit");
+        System.out.println("3) Exit");
+
         System.out.println("Que voulez-vous faire ?");
         Scanner sc = new Scanner(System.in);
         if (sc.hasNextLine()) {
@@ -23,11 +29,11 @@ public class Player {
                         gameMain.startGame();
                         break;
                     case 2:
-                        menuChoice();
+                        //menuChoice();
+                        Administrator.main(args);
                         break;
                     case 3:
                         System.exit(2);
-
                         break;
                     default:
                         System.out.println("Veuillez rentrer un chiffre valide");

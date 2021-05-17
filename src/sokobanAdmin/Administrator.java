@@ -5,8 +5,15 @@
  */
 package sokobanAdmin;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
-import sokobanPlayer.Board;
+import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,61 +21,35 @@ import sokobanPlayer.Board;
  */
 public class Administrator {
 
+    static Scanner entree = new Scanner(System.in);
+
     public static void main(String[] args) {
-        menuChoice();
-        System.out.println("coucou");
-    }
 
-    public static void editMenu() {
-        System.out.println(" ");
-        System.out.println("Menu : ");
-        System.out.println("1. Create new database");
-        System.out.println("2. List board");
-        System.out.println("3. Show board");
-        System.out.println("4. Add board from file");
-        System.out.println("5. Remove board from database [DANGEROUS]");
-        System.out.println("6. Quit.");
-    }
-
-    public static void menuChoice() {
-        editMenu();
-        System.out.println("Que voulez-vous faire ?");
-
-        Scanner sc = new Scanner(System.in);
-
-        if (sc.hasNextLine()) {
-            try {
-                int choice = Integer.parseInt(sc.nextLine());
-                switch (choice) {
-                    case 1:
-                        System.out.println("1. Create new database TODO");
-                        break;
-                    case 2:
-                        System.out.println("2. List board TODO");
-                        break;
-                    case 3:
-                        System.out.println("3. Show board");
-                        break;
-                    case 4:
-                        System.out.println("4. Add board from file");
-                        break;
-                    case 5:
-                        System.out.println("5. Remove board from database [DANGEROUS]");
-                        break;
-                    case 6:
-                        System.out.println("STOP");
-                        System.exit(1);
-                        break;
-                    default:
-                        System.out.println("Veuillez rentrer un chiffre correcte");
-                        menuChoice();
-                }
-
-            } catch (Exception e) {
-                System.out.println("Veuillez rentrer un chiffre correcte");
-                menuChoice();
-            }
+        String chemin = "C:\\Users\\clemc\\OneDrive\\Documents\\NetBeansProjects\\sokoban\\data\\bdBoard.sqlite3";
+        String URL = "jdbc:sqlite:" + chemin;
+        chargerPiloteSQLite();
+        try ( Connection connexion = DriverManager.getConnection(URL)) {
+            preparerRequetes(connexion);
+            gestionBD.menuChoice(connexion);
+        } catch (SQLException ex) {
+            System.err.println("* Base " + URL + " introuvable.");
         }
     }
 
+    private static void chargerPiloteSQLite() {
+        String sqlite_driver = "org.sqlite.JDBC";
+        try {
+            Class.forName(sqlite_driver);
+        } catch (ClassNotFoundException ex) {
+            System.err.println("* Driver " + sqlite_driver + " introuvable.");
+            System.exit(1);
+        }
+    }
+
+    private static void preparerRequetes(Connection c) {
+        // Preparer une requete
+        // "select * from livres where id = ?"
+    }
+
+    
 }
