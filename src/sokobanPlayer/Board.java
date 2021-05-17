@@ -81,7 +81,7 @@ public class Board {
      * @return le plateau de jeu
      */
     static Case[][] movePosition(String direction) {
-        Case currentCase = takeJoueur();
+        Case currentCase = takePlayer();
         int targetX = currentCase.getCaseX();
         int targetY = currentCase.getCaseY();
         switch (direction) {
@@ -148,7 +148,7 @@ public class Board {
      *
      * @return la case sur laquelle est le joueur
      */
-    static Case takeJoueur() {
+    static Case takePlayer() {
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
                 if (board[x][y].getNature() == Nature.PERSON) {
