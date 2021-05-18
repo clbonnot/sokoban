@@ -6,7 +6,7 @@ import java.io.IOException;
 
 /**
  *
- * @author Clément BONNOT
+ * @author Clément Bonnot
  */
 public class Board {
 
@@ -29,34 +29,6 @@ public class Board {
     }
 
     /**
-     * Fonction d'initialisation du plateau de jeu
-     *
-     * @return le plateau de jeu
-     */
-    static Case[][] initBoard() throws IOException {
-        {
-            BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\clemc\\OneDrive\\Documents\\NetBeansProjects\\sokoban\\plateau.txt"));
-            String line;
-            int nbLine = 0;
-            int nbColumn = 0;
-            while ((line = in.readLine()) != null) {
-                nbLine++;
-                nbColumn = line.length();
-            }
-            xSize = nbColumn;
-            ySize = nbLine;
-            in.close();
-        }
-        board = new Case[xSize][ySize];
-        for (int x = 0; x < xSize; x++) {
-            for (int y = 0; y < ySize; y++) {
-                board[x][y] = new Case(x, y);
-            }
-        }
-        return board;
-    }
-
-    /**
      * Méthode qui affiche le plateau de jeu
      */
     public static void showBoard() {
@@ -75,7 +47,8 @@ public class Board {
     }
 
     /**
-     * Fonction qui met à jour la position du personnage sur le plateau lorsque cela est possible
+     * Fonction qui met à jour la position du personnage sur le plateau lorsque
+     * cela est possible
      *
      * @param direction la direction
      * @return le plateau de jeu
@@ -148,7 +121,7 @@ public class Board {
      *
      * @return la case sur laquelle est le joueur
      */
-    static Case takePlayer() {
+    private static Case takePlayer() {
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
                 if (board[x][y].getNature() == Nature.PERSON) {
@@ -161,22 +134,109 @@ public class Board {
     }
 
     /**
+     * Méthode qui ajoute des natures sur les cases.
+     * @param line la ligne concernée 
+     * @param y la colonne concernée
+     * @throws IOException 
+     */
+    static void setNature(String line, int y) throws IOException {
+        for (int x = 0; x < line.length(); x++) {
+            char car = 0;
+            car = line.charAt(x);
+            switch (car) {
+                case '.':
+                    Board.setVoid(x, y);
+                    break;
+                case '#':
+                    Board.setWall(x, y);
+                    break;
+                case 'X':
+                    Board.setTarget(x, y);
+                    break;
+                case 'C':
+                    Board.setBox(x, y);
+                    break;
+                case 'P':
+                    Board.setPerson(x, y);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    /**
      * Booléen qui vérifie qu'une Case est bien dans le plateau
      *
      * @param xTarget coordonnée X de la case
      * @param yTarget coordonnée Y de la case
      * @return vrai si la Case est hors du plateau, faux sinon
      */
-    public static boolean outOfBoard(int xTarget, int yTarget) {
+    private static boolean outOfBoard(int xTarget, int yTarget) {
         return xTarget < 0 || xTarget > xSize - 1 || yTarget < 0 || yTarget > ySize - 1;
     }
-    
-    
-    
-    
-    
+
+    /**
+     * Fonction qui ajoute une caisse sur le plateau de jeu
+     *
+     * @param line la ligne concernée
+     * @param column la colonne concernée
+     * @return le plateau de jeu
+     */
+    private static Case[][] setBox(int line, int column) {
+        board[line][column].setNature(Nature.BOX);
+        return board;
+    }
+
+    /**
+     * Fonction qui rajoute une cible sur le plateau de jeu
+     *
+     * @param line la ligne concernée
+     * @param column la colonne concernée
+     * @return le plateau de jeu
+     */
+    private static Case[][] setTarget(int line, int column) {
+        board[line][column].setNature(Nature.TARGET);
+        return board;
+    }
+
+    /**
+     * Fonction qui met une position de départ pour le joueur
+     *
+     * @param line la ligne concernée
+     * @param column la colonne concernée
+     * @return la plateau de jeu
+     */
+    private static Case[][] setPerson(int line, int column) {
+        board[line][column].setNature(Nature.PERSON);
+        return board;
+    }
+
+    /**
+     * Fonction qui pose un mur
+     *
+     * @param line la ligne concernée
+     * @param column la colonne concernée
+     * @return le plateau de jeu
+     */
+    private static Case[][] setWall(int line, int column) {
+        board[line][column].setNature(Nature.WALL);
+        return board;
+    }
+
+    /**
+     * Fonction qui met une case vide
+     *
+     * @param line la ligne
+     * @param column la colonne
+     * @return le plateau de jeu
+     */
+    private static Case[][] setVoid(int line, int column) {
+        board[line][column].setNature(Nature.VOID);
+        return board;
+    }
+
     // FONCTIONS INUTILES DE LA PARTIE 1 : 
-    
     /**
      * Fonction qui rajoute un mur horizontal
      *
@@ -209,38 +269,30 @@ public class Board {
     }
 
     /**
-     * Fonction qui ajoute une caisse sur le plateau de jeu
+     * Fonction d'initialisation du plateau de jeu
      *
-     * @param line la ligne concernée
-     * @param column la colonne concernée
      * @return le plateau de jeu
      */
-    private static Case[][] addBox(int line, int column) {
-        board[line][column].setNature(Nature.BOX);
-        return board;
-    }
-
-    /**
-     * Fonction qui rajoute une cible sur le plateau de jeu
-     *
-     * @param line la ligne concernée
-     * @param column la colonne concernée
-     * @return le plateau de jeu
-     */
-    private static Case[][] addTarget(int line, int column) {
-        board[line][column].setNature(Nature.TARGET);
-        return board;
-    }
-
-    /**
-     * Fonction qui met une position de départ pour le joueur
-     *
-     * @param line la ligne concernée
-     * @param column la colonne concernée
-     * @return la plateau de jeu
-     */
-    private static Case[][] setPosition(int line, int column) {
-        board[line][column].setNature(Nature.PERSON);
+    static Case[][] initBoardFile() throws IOException {
+        {
+            BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\clemc\\OneDrive\\Documents\\NetBeansProjects\\sokoban\\plateau.txt"));
+            String line;
+            int nbLine = 0;
+            int nbColumn = 0;
+            while ((line = in.readLine()) != null) {
+                nbLine++;
+                nbColumn = line.length();
+            }
+            xSize = nbColumn;
+            ySize = nbLine;
+            in.close();
+        }
+        board = new Case[xSize][ySize];
+        for (int x = 0; x < xSize; x++) {
+            for (int y = 0; y < ySize; y++) {
+                board[x][y] = new Case(x, y);
+            }
+        }
         return board;
     }
 }

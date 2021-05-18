@@ -1,42 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sokobanAdmin;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Scanner;
-import java.sql.PreparedStatement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
- * @author clemc
+ * @author Clément Bonnot
  */
 public class Administrator {
 
-    static Scanner entree = new Scanner(System.in);
-
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws IOException {
+        // Initialisation de la base de donnée
         String chemin = "C:\\Users\\clemc\\OneDrive\\Documents\\NetBeansProjects\\sokoban\\data\\bdBoard.sqlite3";
         String URL = "jdbc:sqlite:" + chemin;
-        chargerPiloteSQLite();
+        loadPilotSQLite();
+
         try ( Connection connexion = DriverManager.getConnection(URL)) {
-            preparerRequetes(connexion);
-            gestionBD.menuChoice(connexion);
+            managementBD.menuChoice(connexion);
         } catch (SQLException ex) {
             System.err.println("* Base " + URL + " introuvable.");
         }
     }
-
-    private static void chargerPiloteSQLite() {
+    
+/**
+ * Méthode de lancement du pilote SQLite
+ */
+    public static void loadPilotSQLite() {
         String sqlite_driver = "org.sqlite.JDBC";
         try {
             Class.forName(sqlite_driver);
@@ -45,11 +36,4 @@ public class Administrator {
             System.exit(1);
         }
     }
-
-    private static void preparerRequetes(Connection c) {
-        // Preparer une requete
-        // "select * from livres where id = ?"
-    }
-
-    
 }

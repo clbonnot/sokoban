@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sokobanAdmin;
 
 import java.io.BufferedReader;
@@ -10,19 +5,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Statement;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-import sokobanPlayer.Board;
-import static sokobanPlayer.Board.board;
 
 /**
  *
- * @author clemc
+ * @author Clément Bonnot
  */
-public class gestionBD {
+public class managementBD {
+    
 /**
  * Menu principale de la partie "EDIT"
  * @param c La connexion à la base de donnée
@@ -40,9 +32,7 @@ public class gestionBD {
             System.out.println("5. Retirer un plateau de jeu de la base de donnée [DANGEROUS]");
             System.out.println("6. Quit.");
             System.out.println("Que voulez-vous faire ?");
-
             Scanner sc = new Scanner(System.in);
-
             if (sc.hasNextLine()) {
                 try {
                     int choice = Integer.parseInt(sc.nextLine());
@@ -112,7 +102,6 @@ public class gestionBD {
             String line = resultats.getString("nb_lines");
             String columns = resultats.getString("nb_columns");
             System.out.println("ID : " + id + " |  Nom : " + titre + " |  Lignes : " + line + " |  Colonnes : " + columns + " ");
-
         }
     }
 
@@ -128,7 +117,6 @@ public class gestionBD {
         Scanner sc = new Scanner(System.in);
         String idAdd = null;
         String nameAdd = null;
-
         if (sc.hasNextLine()) {
             idAdd = sc.nextLine();
         }
@@ -137,7 +125,6 @@ public class gestionBD {
         if (sc2.hasNextLine()) {
             nameAdd = sc2.nextLine();
         }
-
         BufferedReader in = new BufferedReader(new FileReader("C:\\Users\\clemc\\OneDrive\\Documents\\NetBeansProjects\\sokoban\\plateau.txt"));
         String line;
         int lines = 0;
@@ -156,7 +143,6 @@ public class gestionBD {
                 + "values ('" + idAdd + "','" + nameAdd + "', " + lines + " , " + columns + ")");
         System.out.println("Plateau crée");
     }
-
     
     /**
      * Méthode qui affiche les lignes correspondantes à un plateau de jeu 
