@@ -14,12 +14,13 @@ import java.util.Scanner;
  * @author Clément Bonnot
  */
 public class managementBD {
-    
-/**
- * Menu principale de la partie "EDIT"
- * @param c La connexion à la base de donnée
- * @throws SQLException 
- */
+
+    /**
+     * Menu principale de la partie "EDIT"
+     *
+     * @param c La connexion à la base de donnée
+     * @throws SQLException
+     */
     static void menuChoice(Connection c) throws SQLException {
         boolean encore = true;
         while (encore) {
@@ -50,7 +51,7 @@ public class managementBD {
                             addBoardFromFile(c);
                             break;
                         case 5:
-                            System.out.println("5. Remove board from database [DANGEROUS] TODO");
+                            removeTableFromBase(c);
                             break;
                         case 6:
                             System.out.println("STOP");
@@ -69,7 +70,8 @@ public class managementBD {
 
     /**
      * Méthode de création des bases de donnée BOARD & LINES
-     * @param c La connexion à la base de donnée 
+     *
+     * @param c La connexion à la base de donnée
      */
     private static void createBase(Connection c) {
         {
@@ -89,8 +91,9 @@ public class managementBD {
 
     /**
      * Méthode qui affiche la liste des plateaux de jeux
-     * @param c La connexion à la base 
-     * @throws SQLException 
+     *
+     * @param c La connexion à la base
+     * @throws SQLException
      */
     private static void listBoard(Connection c) throws SQLException {
         System.out.println("Liste des plateaux :");
@@ -106,10 +109,12 @@ public class managementBD {
     }
 
     /**
-     * Méthode qui ajoute un plateau de jeu à la base de donnée depuis un fichier 
-     * @param c La connexion à la base 
+     * Méthode qui ajoute un plateau de jeu à la base de donnée depuis un
+     * fichier
+     *
+     * @param c La connexion à la base
      * @throws IOException
-     * @throws SQLException 
+     * @throws SQLException
      */
     private static void addBoardFromFile(Connection c) throws IOException, SQLException {
         System.out.println("Vous allez ajouter un nouveau plateau de jeu :");
@@ -143,11 +148,12 @@ public class managementBD {
                 + "values ('" + idAdd + "','" + nameAdd + "', " + lines + " , " + columns + ")");
         System.out.println("Plateau crée");
     }
-    
+
     /**
-     * Méthode qui affiche les lignes correspondantes à un plateau de jeu 
+     * Méthode qui affiche les lignes correspondantes à un plateau de jeu
+     *
      * @param c La connexion à la base
-     * @throws SQLException 
+     * @throws SQLException
      */
     private static void listLineForBoard(Connection c) throws SQLException {
         String choice;
@@ -165,6 +171,28 @@ public class managementBD {
                 int nblines = resultats.getInt("lines_num");
                 String line = resultats.getString("description");
                 System.out.println("ID : " + id + " |  nbLine : " + nblines + " |  desc : " + line + " ");
+            }
+        }
+    }
+
+    /**
+     * Fonction qui gère la suppression d'un plateau dans la base de donnée
+     *
+     * @param c la connexion à la base
+     */
+    private static void removeTableFromBase(Connection c) {
+
+        String choice;
+        System.out.println("Quel plateau souhaitez-vous supprimer ? ?");
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextLine()) {
+            choice = sc.nextLine();
+            try {
+                Statement s = c.createStatement();
+                s.execute("DELETE FROM BOARD WHERE ID_BOARD = '" + choice + "'");
+                s.execute("DELETE FROM LINES WHERE ID_BOARD = '" + choice + "'");
+            } catch (SQLException ex) {
+                System.err.println("* Exception " + ex.getMessage());
             }
         }
     }
