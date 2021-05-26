@@ -118,15 +118,28 @@ public class managementBD {
      */
     private static void addBoardFromFile(Connection c) throws IOException, SQLException {
         System.out.println("Vous allez ajouter un nouveau plateau de jeu :");
-        System.out.println("Quel identifiant pour votre plateau ?");
-        Scanner sc = new Scanner(System.in);
+
+        boolean notExist = false;
+        String id;
         String idAdd = null;
         String nameAdd = null;
-        if (sc.hasNextLine()) {
-            idAdd = sc.nextLine();
-        }
+        do {
+            System.out.println("Quel identifiant pour votre plateau ?");
+            Scanner sc = new Scanner(System.in);
+            id = sc.nextLine();
+            if (boardExist(c, id)) {
+                System.out.println("Ce plateau existe déjà");
+
+            } else {
+                idAdd = id;
+                notExist = true;
+            }
+
+        } while (!notExist);
+
         System.out.println("Quel nom pour votre plateau de jeu ?");
         Scanner sc2 = new Scanner(System.in);
+
         if (sc2.hasNextLine()) {
             nameAdd = sc2.nextLine();
         }
@@ -141,9 +154,9 @@ public class managementBD {
             s.executeUpdate("insert into LINES "
                     + "values ('" + idAdd + "', " + lines + " , '" + line + "')");
         }
-        System.out.println(lines);
         in.close();
         Statement s = c.createStatement();
+
         s.executeUpdate("insert into BOARD "
                 + "values ('" + idAdd + "','" + nameAdd + "', " + lines + " , " + columns + ")");
         System.out.println("Plateau crée");
@@ -195,5 +208,15 @@ public class managementBD {
                 System.err.println("* Exception " + ex.getMessage());
             }
         }
+    }
+
+    public static boolean boardExist(Connection c, String id) throws SQLException {
+        boolean exist = false;
+        Statement statement = c.createStatement();
+        ResultSet resultats = statement.executeQuery("select * from LINES WHERE id_board ='" + id + "' ");
+        if (resultats.next()) {
+            exist = true;
+        }
+        return exist;
     }
 }

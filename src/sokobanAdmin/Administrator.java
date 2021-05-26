@@ -16,17 +16,16 @@ public class Administrator {
         String chemin = "C:\\Users\\clemc\\OneDrive\\Documents\\NetBeansProjects\\sokoban\\data\\bdBoard.sqlite3";
         String URL = "jdbc:sqlite:" + chemin;
         loadPilotSQLite();
-
         try ( Connection connexion = DriverManager.getConnection(URL)) {
             managementBD.menuChoice(connexion);
         } catch (SQLException ex) {
             System.err.println("* Base " + URL + " introuvable.");
         }
     }
-    
-/**
- * Méthode de lancement du pilote SQLite
- */
+
+    /**
+     * Méthode de lancement du pilote SQLite
+     */
     public static void loadPilotSQLite() {
         String sqlite_driver = "org.sqlite.JDBC";
         try {

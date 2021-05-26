@@ -26,6 +26,7 @@ public class Board {
      * @param ySize taille Y du plateau
      */
     public Board(int xSize, int ySize) {
+ 
     }
 
     /**
@@ -53,7 +54,7 @@ public class Board {
      * @param direction la direction
      * @return le plateau de jeu
      */
-    static Case[][] movePosition(String direction) {
+    public static Case[][] movePosition(String direction) {
         Case currentCase = takePlayer();
         int targetX = currentCase.getCaseX();
         int targetY = currentCase.getCaseY();
@@ -121,7 +122,7 @@ public class Board {
      *
      * @return la case sur laquelle est le joueur
      */
-    private static Case takePlayer() {
+    public static Case takePlayer() {
         for (int x = 0; x < xSize; x++) {
             for (int y = 0; y < ySize; y++) {
                 if (board[x][y].getNature() == Nature.PERSON) {
@@ -183,7 +184,7 @@ public class Board {
      * @param column la colonne concernée
      * @return le plateau de jeu
      */
-    private static Case[][] setBox(int line, int column) {
+    public static Case[][] setBox(int line, int column) {
         board[line][column].setNature(Nature.BOX);
         return board;
     }
@@ -195,7 +196,7 @@ public class Board {
      * @param column la colonne concernée
      * @return le plateau de jeu
      */
-    private static Case[][] setTarget(int line, int column) {
+    public static Case[][] setTarget(int line, int column) {
         board[line][column].setNature(Nature.TARGET);
         return board;
     }
@@ -207,7 +208,7 @@ public class Board {
      * @param column la colonne concernée
      * @return la plateau de jeu
      */
-    private static Case[][] setPerson(int line, int column) {
+    public static Case[][] setPerson(int line, int column) {
         board[line][column].setNature(Nature.PERSON);
         return board;
     }
@@ -219,7 +220,7 @@ public class Board {
      * @param column la colonne concernée
      * @return le plateau de jeu
      */
-    private static Case[][] setWall(int line, int column) {
+    public static Case[][] setWall(int line, int column) {
         board[line][column].setNature(Nature.WALL);
         return board;
     }
@@ -231,7 +232,7 @@ public class Board {
      * @param column la colonne
      * @return le plateau de jeu
      */
-    private static Case[][] setVoid(int line, int column) {
+    public static Case[][] setVoid(int line, int column) {
         board[line][column].setNature(Nature.VOID);
         return board;
     }
@@ -245,7 +246,7 @@ public class Board {
      * @param c2 deuxième coordonnée Y
      * @return le plateau de jeu
      */
-    private static Case[][] addHorizontalWall(int line, int c1, int c2) {
+    public static Case[][] addHorizontalWall(int line, int c1, int c2) {
 
         for (int y = c1; y < c2; y++) {
             board[y][line].setNature(Nature.WALL);

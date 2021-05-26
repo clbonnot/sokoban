@@ -4,7 +4,7 @@ package sokobanPlayer;
  *
  * @author Clément Bonnot
  */
-enum Nature {
+public enum Nature {
 
     WALL(1, "Mur", "#"),
     VOID(2, "Vide", "."),

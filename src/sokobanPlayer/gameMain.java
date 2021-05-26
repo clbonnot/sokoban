@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 import static sokobanAdmin.Administrator.loadPilotSQLite;
+import sokobanAdmin.managementBD;
 import static sokobanPlayer.Board.board;
 import static sokobanPlayer.Board.showBoard;
 import static sokobanPlayer.Board.xSize;
@@ -32,15 +33,23 @@ public class gameMain {
         String chemin = "C:\\Users\\clemc\\OneDrive\\Documents\\NetBeansProjects\\sokoban\\data\\bdBoard.sqlite3";
         String URL = "jdbc:sqlite:" + chemin;
         loadPilotSQLite();
-
-        System.out.println("Avec quel plateau souhaitez-vous jouer ?");
-        Scanner sc2 = new Scanner(System.in);
         String numPlateau = null;
-        if (sc2.hasNextLine()) {
-            numPlateau = sc2.nextLine();
-        }
+        boolean notExist = false;
+        String id;
 
         try ( Connection connexion = DriverManager.getConnection(URL)) {
+            do {
+                System.out.println("Avec quel plateau souhaitez-vous jouer ?");
+                Scanner sc = new Scanner(System.in);
+                id = sc.nextLine();
+                if (!managementBD.boardExist(connexion, id)) {
+                    System.out.println("Ce plateau n'existe pas");
+                } else {
+                    numPlateau = id;
+                    notExist = true;
+                }
+
+            } while (!notExist);
             initBoardBD(connexion, numPlateau);
             setNatureBD(connexion, numPlateau);
             //saveFile();
